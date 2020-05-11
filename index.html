@@ -64,7 +64,7 @@
 			// 頁面是開啟的狀態下，改用 firebase onMessage()
 			messaging.onMessage(function(payload) {
 				console.log(payload);
-				console.log(123456)
+				console.log(123456);
 				var msgTitle = payload.data.title;
 				var url = payload.data.click_action;
 				var notification = new Notification(msgTitle, payload.data);
