@@ -83,17 +83,21 @@
 					// 拿到token，firebase-messaging-sw.js 就會存 Service Workers 裡
 					console.log(messaging.getToken());
 					messaging.getToken().then(function(currentToken) {
-						console.log(78910);
-						console.log(currentToken);
-						// token存至firebase
-						var id = currentToken.split(':')[0];
-						firebase.database().ref('pushUsers/' + id).set({
-							'token': currentToken
-						});
+						if (currentToken) {
+							// token存至firebase
+							var id = currentToken.split(':')[0];
+							firebase.database().ref('pushUsers/' + id).set({
+								'token': currentToken
+							});
 
-						// token存至cookies
-						document.cookie = "augustusWsPush=" + currentToken;
+							// token存至cookies
+							document.cookie = "augustusWsPush=" + currentToken;
+						} else {
+							console.log('No Instance ID token available. Request permission to generate one.');
+						}
 
+					}).catch(function(err) {
+						console.log('An error occurred while retrieving token. ', err);
 					});
 				}
 				// cookies 已存在，從 cookies 取出後傳至 firebase
