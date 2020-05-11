@@ -67,7 +67,7 @@
 							// firebase methods，用同一支sw.js
 							messaging.useServiceWorker(reg);
 							messaging.requestPermission().then(function() {
-
+								console.log(1234656);
 								// 先判斷cookies有沒有token，沒有再取token
 								var ckv = document.cookie.replace(/(?:(?:^|.*;\\s*)augustusWsPush\s*\=\s*([^;]*).*$)|^.*$/, "$1") || null;
 
