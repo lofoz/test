@@ -51,12 +51,12 @@ self.addEventListener('notificationclick', function(event) {
 
 // Your web app's Firebase configuration
 var firebaseConfig = {
-	apiKey: "AIzaSyCtte_Qa-Z05-RKafjk20soTTOzNTfROsg",
-	authDomain: "test-b9dff.firebaseapp.com",
-	databaseURL: "https://test-b9dff.firebaseio.com",
-	projectId: "test-b9dff",
-	storageBucket: "test-b9dff.appspot.com",
-	messagingSenderId: "785104352132"
+	apiKey: "AIzaSyBBnECtCvqhG3wmZpORfS3VJZlgjK1KLaU",
+	authDomain: "test-6d390.firebaseapp.com",
+	databaseURL: "https://test-6d390.firebaseio.com",
+	projectId: "test-6d390",
+	storageBucket: "test-6d390.appspot.com",
+	messagingSenderId: "1072871991195"
 };
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig);
