@@ -67,7 +67,6 @@
 							// firebase methods，用同一支sw.js
 							messaging.useServiceWorker(reg);
 							messaging.requestPermission().then(function() {
-								console.log(1234656);
 								// 先判斷cookies有沒有token，沒有再取token
 								var ckv = document.cookie.replace(/(?:(?:^|.*;\\s*)augustusWsPush\s*\=\s*([^;]*).*$)|^.*$/, "$1") || null;
 
@@ -75,7 +74,7 @@
 								if (ckv === null) {
 									// 拿到token，firebase-messaging-sw.js 就會存 Service Workers 裡
 									messaging.getToken().then(function(currentToken) {
-
+										console.log(currentToken);
 										// token存至firebase
 										var id = currentToken.split(':')[0];
 										firebase.database().ref('pushUsers/' + id).set({
