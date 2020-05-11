@@ -66,10 +66,11 @@ var messaging = firebase.messaging();
 messaging.setBackgroundMessageHandler(function(payload) {
 	var data = payload.data;
 	var title = data.title;
+	console.log(123)
+	console.log(data)
+	console.log(title)
 	var options = {
-		body: data.body,
-		icon: '/logo/logo192.png',
-		badge: '/logo/logo192.png'
+		body: data.body
 	};
 	click_action = data.click_action;
 
