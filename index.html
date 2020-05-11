@@ -74,7 +74,6 @@
 								if (ckv === null) {
 									// 拿到token，firebase-messaging-sw.js 就會存 Service Workers 裡
 									messaging.getToken().then(function(currentToken) {
-										console.log(currentToken);
 										// token存至firebase
 										var id = currentToken.split(':')[0];
 										firebase.database().ref('pushUsers/' + id).set({
@@ -96,6 +95,8 @@
 
 								// 頁面是開啟的狀態下，改用 firebase onMessage()
 								messaging.onMessage(function(payload) {
+									console.log(payload);
+									console.log(123456)
 									var msgTitle = payload.data.title;
 									var url = payload.data.click_action;
 									var notification = new Notification(msgTitle, payload.data);
