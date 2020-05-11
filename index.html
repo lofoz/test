@@ -96,27 +96,26 @@
 							}).catch(function(err) {
 								console.log('使用者未允許通知', err);
 							});
-							// 頁面是開啟的狀態下，改用 firebase onMessage()
-							messaging.onMessage(function(payload) {
-								console.log(payload);
-								console.log(123456)
-								var msgTitle = payload.data.title;
-								var url = payload.data.click_action;
-								var notification = new Notification(msgTitle, payload.data);
-
-								// 點擊推播後要連去哪
-								notification.addEventListener('click', function() {
-									e.preventDefault();
-									location.href = url;
-								});
-							});
-
 						})
 						// 註冊失敗
 						.catch(function(err) {
 							console.log('error: ', err);
 						});
 				}
+				// 頁面是開啟的狀態下，改用 firebase onMessage()
+				messaging.onMessage(function(payload) {
+					console.log(payload);
+					console.log(123456)
+					var msgTitle = payload.data.title;
+					var url = payload.data.click_action;
+					var notification = new Notification(msgTitle, payload.data);
+
+					// 點擊推播後要連去哪
+					notification.addEventListener('click', function() {
+						e.preventDefault();
+						location.href = url;
+					});
+				});
 
 			});
 		</script>
