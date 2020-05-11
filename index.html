@@ -80,6 +80,7 @@
 
 				// cookies不存在，跟使用者要求通知權限
 				if (ckv === null) {
+					console.log(123456);
 					// 拿到token，firebase-messaging-sw.js 就會存 Service Workers 裡
 					messaging.getToken().then(function(currentToken) {
 
