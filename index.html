@@ -40,7 +40,6 @@
 
 		<!-- TODO: Add SDKs for Firebase products that you want to use
      https://firebase.google.com/docs/web/setup#available-libraries -->
-		<script src="https://www.gstatic.com/firebasejs/5.9.1/firebase-auth.js"></script>
 		<script src="https://www.gstatic.com/firebasejs/5.9.1/firebase-database.js"></script>
 		<script src="https://www.gstatic.com/firebasejs/5.9.1/firebase-messaging.js"></script>
 
@@ -52,7 +51,7 @@
 				databaseURL: "https://test-b9dff.firebaseio.com",
 				projectId: "test-b9dff",
 				storageBucket: "test-b9dff.appspot.com",
-				messagingSenderId: "785104352132"
+				messagingSenderId: "785104352132",
 			};
 			// Initialize Firebase
 			firebase.initializeApp(firebaseConfig);
@@ -61,29 +60,29 @@
 			messaging.usePublicVapidKey(
 				'BGE_DUkYLq6q6D7EUOnU5D25QGYr6Cj4jmYQNq64HTWYFGBwkZsXy-q5n09vm_rHLHEguyKG0WGUXp35Ui7dHQs');
 
-			if ('serviceWorker' in navigator) {
-				navigator.serviceWorker.register('sw.js')
-					.then(function(reg) {
-						// firebase methods，用同一支sw.js
-						messaging.useServiceWorker(reg);
-					})
-					// 註冊失敗
-					.catch(function(err) {
-						console.log('error: ', err);
-					});
-			}
+			window.addEventListener('load', function() {
+				if ('serviceWorker' in navigator) {
+					navigator.serviceWorker.register('sw.js')
+						.then(function(reg) {
+							// firebase methods，用同一支sw.js
+							messaging.useServiceWorker(reg);
+						})
+						// 註冊失敗
+						.catch(function(err) {
+							console.log('error: ', err);
+						});
+				}
 
-			messaging.requestPermission().then(function() {
+				messaging.requestPermission().then(function() {
 
-				// 先判斷cookies有沒有token，沒有再取token
-				var ckv = document.cookie.replace(/(?:(?:^|.*;\\s*)augustusWsPush\s*\=\s*([^;]*).*$)|^.*$/, "$1") || null;
+					// 先判斷cookies有沒有token，沒有再取token
+					var ckv = document.cookie.replace(/(?:(?:^|.*;\\s*)augustusWsPush\s*\=\s*([^;]*).*$)|^.*$/, "$1") || null;
 
-				// cookies不存在，跟使用者要求通知權限
-				if (ckv === null) {
-					// 拿到token，firebase-messaging-sw.js 就會存 Service Workers 裡
-					console.log(messaging.getToken());
-					messaging.getToken().then(function(currentToken) {
-						if (currentToken) {
+					// cookies不存在，跟使用者要求通知權限
+					if (ckv === null) {
+						// 拿到token，firebase-messaging-sw.js 就會存 Service Workers 裡
+						messaging.getToken().then(function(currentToken) {
+
 							// token存至firebase
 							var id = currentToken.split(':')[0];
 							firebase.database().ref('pushUsers/' + id).set({
@@ -92,37 +91,34 @@
 
 							// token存至cookies
 							document.cookie = "augustusWsPush=" + currentToken;
-						} else {
-							console.log('No Instance ID token available. Request permission to generate one.');
-						}
 
-					}).catch(function(err) {
-						console.log('An error occurred while retrieving token. ', err);
-					});
-				}
-				// cookies 已存在，從 cookies 取出後傳至 firebase
-				else {
-					var id = ckv.split(':')[0];
-					firebase.database().ref('pushUsers/' + id).set({
-						'token': ckv
-					});
-				}
+						});
+					}
+					// cookies 已存在，從 cookies 取出後傳至 firebase
+					else {
+						var id = ckv.split(':')[0];
+						firebase.database().ref('pushUsers/' + id).set({
+							'token': ckv
+						});
+					}
 
-				// 頁面是開啟的狀態下，改用 firebase onMessage()
-				messaging.onMessage(function(payload) {
-					var msgTitle = payload.data.title;
-					var url = payload.data.click_action;
-					var notification = new Notification(msgTitle, payload.data);
+					// 頁面是開啟的狀態下，改用 firebase onMessage()
+					messaging.onMessage(function(payload) {
+						var msgTitle = payload.data.title;
+						var url = payload.data.click_action;
+						var notification = new Notification(msgTitle, payload.data);
 
-					// 點擊推播後要連去哪
-					notification.addEventListener('click', function() {
-						e.preventDefault();
-						location.href = url;
+						// 點擊推播後要連去哪
+						notification.addEventListener('click', function() {
+							e.preventDefault();
+							location.href = url;
+						});
 					});
+
+				}).catch(function(err) {
+					console.log('使用者未允許通知', err);
 				});
 
-			}).catch(function(err) {
-				console.log('使用者未允許通知', err);
 			});
 		</script>
 
