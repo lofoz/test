@@ -90,13 +90,10 @@
 					// web push
 					push: function() {
 						var notification = {
-							'title': this.form.title,
-							'body': this.form.body,
-							'badge': '/logo/logo192.png',
-							'icon': '/logo/logo192.png',
-							'click_action': this.url,
+							'title': '123',
+							'body': '123',
 							'data': {
-								'url': this.url
+								'url': '123'
 							}
 						};
 
@@ -139,6 +136,7 @@
 						var t = [];
 						Object.keys(lists).map((key, index) => {
 							var value = lists[key];
+							console.log(value.token);
 							this.tokens.push(value.token);
 						});
 					});
