@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Admin - Medium Augustus FCM web push demo code - Augustus - Let's Write</title>
+		<link rel="canonical" href="https://letswrite.tw/pwa-web-push/">
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+		<link rel="shortcut icon" href="https://i0.wp.com/letswrite.tw/wp-content/uploads/2019/07/cropped-letswrite512-1.jpg" />
+
+		<!-- Google Tag Manager-->
+		<script>
+			(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+      new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+      j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+      'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+      })(window,document,'script','dataLayer','GTM-PGQ9WQT');
+    </script>
+
+	</head>
+	<body>
+		<!-- Google Tag Manager (noscript)-->
+		<noscript>
+			<iframe src="https://www.googletagmanager.com/ns.html?id=GTM-PGQ9WQT" height="0" width="0" style="display:none;visibility:hidden"></iframe>
+		</noscript>
+
+		<div id="app">
+			<form>
+				<div>
+					<label for="title">標題</label>
+					<input id="title" type="text" v-model="form.title">
+				</div>
+				<div>
+					<label for="description">內文</label>
+					<input id="description" type="text" v-model="form.body">
+				</div>
+				<div>
+					<label for="link">連結</label>
+					<input id="link" type="text" v-model="form.url">
+				</div>
+				<div>
+					<label for="utm_source">utm_source</label>
+					<input id="utm_source" type="text" v-model="form.utmS">
+				</div>
+				<div>
+					<label for="utm_medium">utm_medium</label>
+					<input id="utm_medium" type="text" v-model="form.utmM">
+				</div>
+				<div>
+					<label for="utm_campaign">utm_campaign</label>
+					<input id="utm_campaign" type="text" v-model="form.utmC">
+				</div>
+				<button type="button" @click.prevent="push">發送</button>
+			</form>
+		</div>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.19/vue.js"></script>
+		<script src="https://www.gstatic.com/firebasejs/7.14.4/firebase.js"></script>
+		<script>
+			var key = 'AAAA-cwnZ5s:APA91bHS0_hmwrVREOc3Xfcqy82e7ThBi4GOpLvWFYlcWSg1PWqQGK5VU9XdsL7TmnnUj5AtP9TaFHyK2og3pOSLsQ0rWKmmV_SlBnahLTOodfVuUFzBkvTK08s1reqshZfh4qPzow8v';
+var to = 'eoOJwkegWAWOLuXheTNuJk:APA91bEqzDbToSfYiWlNgJO-uZnVbpP33MYgqRG5UyZ9YLo7W_yziau7usMCzv51BKbvesddhfEapaeSlupAmLyPWTI0hD_UXwwkhL6P1K_QYhjGk1cyNlwSczhDwkbhIaWRBDepc_kt';
+var notification = {
+  'title': 'Portugal vs. Denmark',
+  'body': '5 to 1',
+  'icon': 'firebase-logo.png',
+  'click_action': 'http://localhost:8081'
+};
+
+fetch('https://fcm.googleapis.com/fcm/send', {
+  'method': 'POST',
+  'headers': {
+    'Authorization': 'key=' + key,
+    'Content-Type': 'application/json'
+  },
+  'body': JSON.stringify({
+    'notification': notification,
+    'to': to
+  })
+}).then(function(response) {
+  console.log(response);
+}).catch(function(error) {
+  console.error(error);
+})
+		</script>
+	</body>
+</html>
