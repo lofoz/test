@@ -148,6 +148,7 @@ messaging.onTokenRefresh(() => {
     // subsequent calls to getToken will return from cache.
     messaging.getToken().then((currentToken) => {
       if (currentToken) {
+		  console.log(currentToken);
         sendTokenToServer(currentToken);
       } else {
         // Show permission request.
