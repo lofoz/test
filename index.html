@@ -107,7 +107,11 @@ limitations under the License.
 
   // [START refresh_token]
   // Callback fired if Instance ID token is updated.
-  messaging.onTokenRefresh(() => {
+  
+  navigator.serviceWorker.register('firebase-messaging-sw.js')
+.then((registration) => {
+  messaging.useServiceWorker(registration);
+messaging.onTokenRefresh(() => {
     messaging.getToken().then((refreshedToken) => {
       console.log('Token refreshed.');
       // Indicate that the new Instance ID token has not yet been sent to the
@@ -277,6 +281,8 @@ limitations under the License.
   }
 
   resetUI();
+  // Request permission and get token.....
+});
 </script>
 </body>
 </html>
