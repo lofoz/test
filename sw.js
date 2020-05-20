@@ -25,10 +25,28 @@ workbox.precaching.precacheAndRoute([{
 
 var click_action; // 點擊notifiction要去的網址
 
+// Your web app's Firebase configuration
+var firebaseConfig = {
+	apiKey: "AIzaSyBBnECtCvqhG3wmZpORfS3VJZlgjK1KLaU",
+	authDomain: "test-6d390.firebaseapp.com",
+	databaseURL: "https://test-6d390.firebaseio.com",
+	projectId: "test-6d390",
+	storageBucket: "test-6d390.appspot.com",
+	messagingSenderId: "1072871991195",
+	appId: "1:1072871991195:web:0c4beef2a181536b15633e",
+	measurementId: "G-QSTSCG37TE"
+};
+// Initialize Firebase
+firebase.initializeApp(firebaseConfig);
+
+var messaging = firebase.messaging();
+
+
 // firefox bug：在 firebase 掌控所有 notifiction 前，先註冊一個 notificationclick 事件
 // 監聽notifiction點擊事件
 self.addEventListener('notificationclick', function(event) {
 	var url = click_action;
+	console.log(url);
 	event.notification.close();
 	event.waitUntil(
 		clients.matchAll({
@@ -49,21 +67,6 @@ self.addEventListener('notificationclick', function(event) {
 	);
 });
 
-// Your web app's Firebase configuration
-var firebaseConfig = {
-	apiKey: "AIzaSyBBnECtCvqhG3wmZpORfS3VJZlgjK1KLaU",
-	authDomain: "test-6d390.firebaseapp.com",
-	databaseURL: "https://test-6d390.firebaseio.com",
-	projectId: "test-6d390",
-	storageBucket: "test-6d390.appspot.com",
-	messagingSenderId: "1072871991195",
-	appId: "1:1072871991195:web:0c4beef2a181536b15633e",
-	measurementId: "G-QSTSCG37TE"
-};
-// Initialize Firebase
-firebase.initializeApp(firebaseConfig);
-
-var messaging = firebase.messaging();
 
 messaging.setBackgroundMessageHandler(function(payload) {
 	var data = payload.notification;
