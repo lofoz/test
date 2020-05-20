@@ -42,6 +42,22 @@ const messaging = firebase.messaging();
 // background (Web app is closed or not in browser focus) then you should
 // implement this optional method.
 // [START background_handler]
+
+var firebaseConfig = {
+    apiKey: "AIzaSyBBnECtCvqhG3wmZpORfS3VJZlgjK1KLaU",
+    authDomain: "test-6d390.firebaseapp.com",
+    databaseURL: "https://test-6d390.firebaseio.com",
+    projectId: "test-6d390",
+    storageBucket: "test-6d390.appspot.com",
+    messagingSenderId: "1072871991195",
+    appId: "1:1072871991195:web:0c4beef2a181536b15633e",
+    measurementId: "G-QSTSCG37TE"
+  };
+  // Initialize Firebase
+  firebase.initializeApp(firebaseConfig);
+  
+  const messaging = firebase.messaging();
+
 messaging.setBackgroundMessageHandler(function(payload) {
   console.log('[firebase-messaging-sw.js] Received background message ', payload);
   // Customize notification here
