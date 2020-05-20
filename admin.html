@@ -58,7 +58,7 @@
 		<script src="https://www.gstatic.com/firebasejs/7.14.4/firebase.js"></script>
 		<script>
 			var key = 'AAAA-cwnZ5s:APA91bHS0_hmwrVREOc3Xfcqy82e7ThBi4GOpLvWFYlcWSg1PWqQGK5VU9XdsL7TmnnUj5AtP9TaFHyK2og3pOSLsQ0rWKmmV_SlBnahLTOodfVuUFzBkvTK08s1reqshZfh4qPzow8v';
-var to = 'dFoBxOllBm0v-kBPZnhcfi:APA91bGX-Zp3BpqWesehS9ykafggspaLtoNr9anbMiAEF6WZlHxjvT1Zv3mh_p_hTmuT-dwQt1yHvpE4omY8BL_WS1Va18YXw5F_1JMCKde4oRWUJqUnBfW9SCBd2HAe6Vu0Gz56dgMQ';
+var to = 'dN6Y5X-gRIpM3J6Am696W6:APA91bFil918SGlVmSAmNRQx0m9_PVVZJ9Dl_bAsD1aij4X50Sicwk2M8BS4LjiIlQUNSTbtEH3h5VmqwXZYQC64I-WZwdDcPkRYWcCk3vdPc8LkfN3t0iYJ-mMQYiu1USOB1SkzmwIG';
 var notification = {
   'title': 'Portugal vs. Denmark',
   'body': '5 to 1',
@@ -74,11 +74,6 @@ fetch('https://fcm.googleapis.com/fcm/send', {
   },
   'body': JSON.stringify({
     'notification': notification,
-	"webpush": {
-      "fcm_options": {
-        "link": "https://dummypage.com"
-      }
-    },
     'to': to
   })
 }).then(function(response) {

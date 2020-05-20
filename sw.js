@@ -1,6 +1,6 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/3.6.3/workbox-sw.js");
-importScripts('https://www.gstatic.com/firebasejs/5.7.0/firebase-app.js');
-importScripts('https://www.gstatic.com/firebasejs/5.7.0/firebase-messaging.js');
+importScripts('https://www.gstatic.com/firebasejs/7.14.4/firebase-app.js');
+importScripts('https://www.gstatic.com/firebasejs/7.14.4/firebase-messaging.js');
 
 workbox.clientsClaim();
 workbox.skipWaiting();
@@ -56,7 +56,9 @@ var firebaseConfig = {
 	databaseURL: "https://test-6d390.firebaseio.com",
 	projectId: "test-6d390",
 	storageBucket: "test-6d390.appspot.com",
-	messagingSenderId: "1072871991195"
+	messagingSenderId: "1072871991195",
+	appId: "1:1072871991195:web:0c4beef2a181536b15633e",
+	measurementId: "G-QSTSCG37TE"
 };
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig);
@@ -64,11 +66,8 @@ firebase.initializeApp(firebaseConfig);
 var messaging = firebase.messaging();
 
 messaging.setBackgroundMessageHandler(function(payload) {
-	var data = payload.data;
+	var data = payload.notification;
 	var title = data.title;
-	console.log(123)
-	console.log(data)
-	console.log(title)
 	var options = {
 		body: data.body
 	};
